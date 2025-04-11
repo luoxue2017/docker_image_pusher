@@ -1,7 +1,7 @@
 # --platform=linux/arm64 jmcombs/sftp
 # --platform=linux/arm64 emberstack/sftp
---platform=linux/arm64 justsong/one-api:v0.6.10
---platform=linux/amd64 justsong/one-api:v0.6.10
+--platform=linux/arm64 yidadaa/chatgpt-next-web:v2.16.0
+--platform=linux/amd64 yidadaa/chatgpt-next-web:v2.16.0
 #支持私库
 #支持指定架构
 #--platform=linux/arm64 xiaoyaliu/alist
