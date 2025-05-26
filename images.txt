@@ -4,6 +4,8 @@
 --platform=linux/amd64 jenkins/jenkins:lts
 --platform=linux/amd64 mcr.microsoft.com/dotnet/aspnet:8.0
 --platform=linux/arm64 mcr.microsoft.com/dotnet/aspnet:8.0
+--platform=linux/amd64 mcr.microsoft.com/dotnet/sdk:8.0
+--platform=linux/arm64 mcr.microsoft.com/dotnet/sdk:8.0
 #支持私库
 #支持指定架构
 #--platform=linux/arm64 xiaoyaliu/alist
