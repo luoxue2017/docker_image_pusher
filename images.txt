@@ -9,8 +9,10 @@
 # --platform=linux/amd64 tonistiigi/binfmt
 #--platform=linux/arm64 docker:dind
 #--platform=linux/amd64 docker:dind
---platform=linux/arm64 tonistiigi/binfmt
---platform=linux/amd64 tonistiigi/binfmt
+#--platform=linux/arm64 tonistiigi/binfmt
+#--platform=linux/amd64 tonistiigi/binfmt
+--platform=linux/arm64 moby/buildkit
+--platform=linux/amd64 moby/buildkit
 #支持私库
 #支持指定架构
 #--platform=linux/arm64 xiaoyaliu/alist
