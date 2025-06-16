@@ -4,11 +4,10 @@ on:
   workflow_dispatch:
 
 env:
-  ALIYUN_REGISTRY: ${{ secrets.ALIYUN_REGISTRY }}
-  ALIYUN_NAME_SPACE: ${{ secrets.ALIYUN_NAME_SPACE }}
-  ALIYUN_USER: ${{ secrets.ALIYUN_USER }}
-  ALIYUN_PASS: ${{ secrets.ALIYUN_PASS }}
-
+  ALIYUN_REGISTRY: "${{ secrets.ALIYUN_REGISTRY }}"
+  ALIYUN_NAME_SPACE: "${{ secrets.ALIYUN_NAME_SPACE }}"
+  ALIYUN_USER: "${{ secrets.ALIYUN_REGISTRY_USER }}"
+  ALIYUN_PASS: "${{ secrets.ALIYUN_REGISTRY_PASSWORD }}"
 jobs:
   transfer-multiarch:
     runs-on: ubuntu-latest
