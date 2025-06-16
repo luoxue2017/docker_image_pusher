@@ -46,14 +46,17 @@ jobs:
 
             echo "🚀 转存镜像: $SOURCE_FULL → $TARGET_IMAGE"
 
+            TMPDIR=$(mktemp -d)
+            echo "FROM ${SOURCE_FULL}" > $TMPDIR/Dockerfile
+
             docker buildx build \
               --platform linux/amd64,linux/arm64 \
               --pull \
               --push \
               --tag $TARGET_IMAGE \
-              --build-arg SOURCE_IMAGE=$SOURCE_FULL \
-              - <<EOF
-FROM \$SOURCE_IMAGE
-EOF
+              -f $TMPDIR/Dockerfile \
+              $TMPDIR
+
+            rm -rf "$TMPDIR"
 
           done
