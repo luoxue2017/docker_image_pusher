@@ -2,6 +2,8 @@ name: 多架构镜像转存到阿里云
 
 on:
   workflow_dispatch:
+  push:
+    branches: [ main ]
 
 env:
   ALIYUN_REGISTRY: "${{ secrets.ALIYUN_REGISTRY }}"
@@ -39,7 +41,12 @@ jobs:
             IFS=':' read -r SOURCE_IMAGE SOURCE_TAG <<< "$line"
             SOURCE_TAG=${SOURCE_TAG:-latest}
             SOURCE_FULL="docker.io/${SOURCE_IMAGE}:${SOURCE_TAG}"
-
+            # 判断是否带仓库前缀（即是否包含/且第一个部分中有.或:）
+            if [[ "$SOURCE_IMAGE" =~ ^[a-zA-Z0-9.-]+(:[0-9]+)?/ ]]; then
+               SOURCE_FULL="${SOURCE_IMAGE}:${SOURCE_TAG}"
+            else
+               SOURCE_FULL="docker.io/${SOURCE_IMAGE}:${SOURCE_TAG}"
+            fi
             IMAGE_BASENAME=$(echo "$SOURCE_IMAGE" | sed 's|/|-|g')
             TARGET_IMAGE="${ACR_PREFIX}/${IMAGE_BASENAME}:${SOURCE_TAG}"
 
