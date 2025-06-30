@@ -1,4 +1,5 @@
-drakkan/sftpgo:edge-alpine-slim
+emqx/emqx:5.8
+#drakkan/sftpgo:edge-alpine-slim
 # --platform=linux/arm64 jmcombs/sftp 
 # --platform=linux/arm64 emberstack/sftp
 # --platform=linux/arm64 jenkins/jenkins:lts
