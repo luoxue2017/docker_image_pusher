@@ -1,4 +1,7 @@
-mysql:8.0.42
+bitnami/mysql:5.7.43
+redis:8.0.2
+rabbitmq:3.13.7
+#mysql:8.0.42
 #emqx/emqx:5.8.6
 #drakkan/sftpgo:edge-alpine-slim
 # --platform=linux/arm64 jmcombs/sftp 
