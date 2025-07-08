@@ -1,4 +1,5 @@
-portainer/portainer-ce:2.31.2-alpine
+homeassistant/home-assistant:2025.7
+#portainer/portainer-ce:2.31.2-alpine
 #bitnami/mysql:5.7.43
 #redis:8.0.2
 #rabbitmq:3.13.7
