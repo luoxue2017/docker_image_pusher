@@ -64,5 +64,5 @@ jobs:
               $TMPDIR
 
             rm -rf "$TMPDIR"
-
+            echo "  $TARGET_IMAGE"
           done
