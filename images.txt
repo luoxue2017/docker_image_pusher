@@ -1,4 +1,4 @@
-nginx:1.29.0
+nginx:1.29.0-bookworm
 #homeassistant/home-assistant:2025.7
 #portainer/portainer-ce:2.31.2-alpine
 #bitnami/mysql:5.7.43
