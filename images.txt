@@ -1,4 +1,9 @@
-nginx:1.29.0-bookworm
+redis-stack:7.2.0-v18
+bitnami/mysql:8.0.40
+bitnami/clickhouse:24.12.4
+bitnami/clickhouse:24.3.2
+bitnami/clickhouse:23.12.4
+#nginx:1.29.0-bookworm
 #homeassistant/home-assistant:2025.7
 #portainer/portainer-ce:2.31.2-alpine
 #bitnami/mysql:5.7.43
