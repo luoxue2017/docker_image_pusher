@@ -1,4 +1,5 @@
-woahbase/alpine-nfs:2.6.4_20250701
+busybox:latest
+#woahbase/alpine-nfs:2.6.4_20250701
 #redis/redis-stack:7.2.0-v18
 #bitnami/mysql:8.0.40
 #bitnami/clickhouse:24.12.4
