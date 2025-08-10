@@ -1,4 +1,4 @@
-registry.k8s.io/sig-storage/nfsplugin:v4.1.0
+registry.k8s.io/sig-storage/nfsplugin:v4.11.0
 #busybox:latest
 #woahbase/alpine-nfs:2.6.4_20250701
 #redis/redis-stack:7.2.0-v18
