@@ -1,4 +1,7 @@
-rancher/rancher:latest
+registry.k8s.io/sig-storage/livenessprobe:v2.10.0
+registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.8.0
+gcr.io/k8s-staging-sig-storage/iscsiplugin:canary
+#rancher/rancher:latest
 #registry.k8s.io/sig-storage/nfsplugin:v4.11.0
 #busybox:latest
 #woahbase/alpine-nfs:2.6.4_20250701
