@@ -1,4 +1,6 @@
-moby/buildkit:latest
+filebrowser/filebrowser:latest
+machines/filestash:latest
+#moby/buildkit:latest
 #gitlab/gitlab-ce:18.3.0-ce.0
 #registry:3.0.0
 #rabbitmq:3.13.7-management
