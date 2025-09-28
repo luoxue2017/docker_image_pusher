@@ -1,4 +1,6 @@
-gcr.io/kaniko-project/executor:v1.24.0
+docker:28.4.0-dind
+docker:28.4.0-cli
+#gcr.io/kaniko-project/executor:v1.24.0
 #filebrowser/filebrowser:latest
 #machines/filestash:latest
 ##moby/buildkit:latest
