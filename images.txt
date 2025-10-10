@@ -1,6 +1,7 @@
-grafana/loki:2.9.15
-grafana/promtail:2.9.15
-grafana/grafana:10.4.19
+ghcr.io/open-webui/open-webui:main
+#grafana/loki:2.9.15
+#grafana/promtail:2.9.15
+#grafana/grafana:10.4.19
 #tonistiigi/binfmt
 #tonistiigi/binfmt:qemu-v10.0.4
 #docker:28.4.0-dind
