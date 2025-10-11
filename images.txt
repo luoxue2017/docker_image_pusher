@@ -1,4 +1,5 @@
-ghcr.io/open-webui/open-webui:main-slim
+registry.k8s.io/metrics-server/metrics-server:v0.8.0
+#ghcr.io/open-webui/open-webui:main-slim
 #ghcr.io/open-webui/open-webui:main
 #grafana/loki:2.9.15
 #grafana/promtail:2.9.15
