@@ -1,4 +1,6 @@
-emqx/mqttx-web
+snowdreamtech/frps:0.64
+snowdreamtech/frps:0.53.2
+#emqx/mqttx-web
 #postgres:16.10
 #postgres:18.0
 #postgres:15.14
