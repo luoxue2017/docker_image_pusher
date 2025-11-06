@@ -1,10 +1,11 @@
+percona/mongodb_exporter:0.44.0
 #amd
-bitnamilegacy/mongodb:6.0
-natsio/prometheus-nats-exporter:0.17.3
+#bitnamilegacy/mongodb:6.0
+#natsio/prometheus-nats-exporter:0.17.3
 #amd
-rocketchat/rocket.chat:7.12.0
-rocketchat/rocket.chat:develop
-nats:2.11-alpine
+#rocketchat/rocket.chat:7.12.0
+#rocketchat/rocket.chat:develop
+#nats:2.11-alpine
 #snowdreamtech/frps:0.64
 #snowdreamtech/frps:0.53.2
 #emqx/mqttx-web
