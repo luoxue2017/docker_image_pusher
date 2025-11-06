@@ -1,5 +1,10 @@
-snowdreamtech/frps:0.64
-snowdreamtech/frps:0.53.2
+bitnamilegacy/mongodb:6.0 #amd
+natsio/prometheus-nats-exporter:0.17.3
+rocketchat/rocket.chat:7.12.0  #amd
+rocketchat/rocket.chat:develop #amd arm
+nats:2.11-alpine
+#snowdreamtech/frps:0.64
+#snowdreamtech/frps:0.53.2
 #emqx/mqttx-web
 #postgres:16.10
 #postgres:18.0
