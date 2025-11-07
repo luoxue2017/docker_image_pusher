@@ -1,3 +1,6 @@
+polardbx/polardb-x:v2.4.2_5.4.19
+polardb/polardb_pg_local_instance:15
+polardbx/polardbx-engine-2.0:80-8.0.18-202404091343
 #registry.cn-hangzhou.aliyuncs.com/share20
 #oceanbase/oceanbase-ce:4.3.5-lts
 #percona/mongodb_exporter:0.44.0
