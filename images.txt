@@ -1,4 +1,5 @@
-percona/mongodb_exporter:0.44.0
+oceanbase/oceanbase-ce:4.3.5-lts
+#percona/mongodb_exporter:0.44.0
 #amd
 #bitnamilegacy/mongodb:6.0
 #natsio/prometheus-nats-exporter:0.17.3
