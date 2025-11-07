@@ -1,4 +1,5 @@
-oceanbase/oceanbase-ce:4.3.5-lts
+#registry.cn-hangzhou.aliyuncs.com/share20
+#oceanbase/oceanbase-ce:4.3.5-lts
 #percona/mongodb_exporter:0.44.0
 #amd
 #bitnamilegacy/mongodb:6.0
