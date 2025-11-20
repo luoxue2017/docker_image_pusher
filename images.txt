@@ -1,6 +1,7 @@
-pgvector/pgvector:pg17
-pgvector/pgvector:pg18
-pgvector/pgvector:pg16
+portainer/portainer-ce:2.33.4-alpine
+#pgvector/pgvector:pg17
+#pgvector/pgvector:pg18
+#pgvector/pgvector:pg16
 #enmotech/opengauss:6.0.0
 #opengauss/opengauss:7.0.0-RC2.B015
 #polardbx/polardb-x:v2.4.2_5.4.19
