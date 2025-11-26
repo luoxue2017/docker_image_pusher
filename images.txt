@@ -1,4 +1,5 @@
-mintplexlabs/anythingllm:pg-1.9.0
+mintplexlabs/anythingllm:latest
+#mintplexlabs/anythingllm:pg-1.9.0
 #portainer/portainer-ce:2.33.4-alpine
 #pgvector/pgvector:pg17
 #pgvector/pgvector:pg18
