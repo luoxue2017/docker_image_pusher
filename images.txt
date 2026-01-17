@@ -1,5 +1,6 @@
-duan2001/nps:v0.33.13
-duan2001/npc:v0.33.13
+jeessy/ddns-go:v6.15.0
+#duan2001/nps:v0.33.13
+#duan2001/npc:v0.33.13
 #ghcr.io/mhsanaei/3x-ui:latest
 #minio/minio:RELEASE.2025-04-22T22-12-26Z
 #mintplexlabs/anythingllm:latest
