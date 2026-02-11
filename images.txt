@@ -1,3 +1,4 @@
+nodered/node-red:4.1.4-22
 #alpine/ollama:0.15.6
 #ollama/ollama:0.15.6
 #jeessy/ddns-go:v6.15.0
