@@ -1,4 +1,6 @@
-jeessy/ddns-go:v6.15.0
+alpine/ollama:0.15.6
+ollama/ollama:0.15.6
+#jeessy/ddns-go:v6.15.0
 #duan2001/nps:v0.33.13
 #duan2001/npc:v0.33.13
 #ghcr.io/mhsanaei/3x-ui:latest
