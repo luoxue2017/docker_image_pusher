@@ -1,4 +1,6 @@
-nodered/node-red:4.1.4-22
+n8nio/n8n:2.9.4
+n8nio/n8n:1.123.23
+#nodered/node-red:4.1.4-22
 #alpine/ollama:0.15.6
 #ollama/ollama:0.15.6
 #jeessy/ddns-go:v6.15.0
