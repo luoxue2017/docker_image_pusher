@@ -1,4 +1,8 @@
 ##registry.cn-hangzhou.aliyuncs.com/share20
+postgres:18.3
+postgres:17.9
+postgres:16.13
+postgres:15.17
 #smanx/n8n:2.9.4
 #n8nio/n8n:2.7.4
 #mcp/n8n:latest
