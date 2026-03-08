@@ -1,4 +1,4 @@
-##registry.cn-hangzhou.aliyuncs.com/share20
+##registry.cn-hangzhou.aliyuncs.com/share20 
 ghcr.io/open-webui/open-terminal
 #dpage/pgadmin4:9.12.0
 #mintplexlabs/anythingllm:1.11
