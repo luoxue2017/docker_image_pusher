@@ -5,7 +5,7 @@
 #mintplexlabs/anythingllm:pg-1.11.0
 #ghcr.io/open-webui/open-webui:main-slim
 #ghcr.io/open-webui/open-webui:main
-alpine/openclaw:2026.3.8
+#alpine/openclaw:2026.3.8
 alpine/openclaw:latest
 #ghcr.io/openclaw/openclaw:latest
 #1186258278/openclaw-zh:2026.2.26-nightly.202603010509
