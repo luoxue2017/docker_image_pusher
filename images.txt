@@ -1,5 +1,10 @@
 ##registry.cn-hangzhou.aliyuncs.com/share20 
-pgvector/pgvector:pg15
+nginx:1.25
+nginx
+semitechnologies/weaviate:1.25.5
+langgenius/dify-sandbox:0.2.1
+langgenius/dify-sandbox:main
+#pgvector/pgvector:pg15
 #langgenius/dify-api:main
 #langgenius/dify-web:main
 #ghcr.io/open-webui/open-terminal
