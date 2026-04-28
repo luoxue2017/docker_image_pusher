@@ -1,5 +1,6 @@
 ##registry.cn-hangzhou.aliyuncs.com/share20 
-containrrr/watchtower
+ghcr.io/mhsanaei/3x-ui:latest
+#containrrr/watchtower
 #mzz2017/v2raya:v2.2.7.5
 #mzz2017/v2raya
 #sonarqube:community
