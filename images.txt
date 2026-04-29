@@ -1,6 +1,7 @@
 ##registry.cn-hangzhou.aliyuncs.com/share20 
 #clickhouse:24.3.18.7
-clickhouse:26.3.9.8
+#clickhouse:26.3.9.8
+altinity/clickhouse-server:23.3.13.7.altinitystable
 #ghcr.io/mhsanaei/3x-ui:latest
 #containrrr/watchtower
 #mzz2017/v2raya:v2.2.7.5
