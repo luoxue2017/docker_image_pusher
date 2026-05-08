@@ -1,5 +1,6 @@
 ##registry.cn-hangzhou.aliyuncs.com/share20 
-clickhouse/clickhouse-server:23.3.9.55-alpine
+ghcr.io/climactic/markitdown-api:latest
+#clickhouse/clickhouse-server:23.3.9.55-alpine
 #clickhouse:24.3.18.7
 #clickhouse:26.3.9.8
 #altinity/clickhouse-server:23.3.13.7.altinitystable
