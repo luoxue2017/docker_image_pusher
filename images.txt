@@ -13,6 +13,7 @@ eyalrot2/ollama-openai-proxy:latest
 #sonarqube:community
 #nginx:1.25
 #nginx
+nginx:1.31
 #semitechnologies/weaviate:1.25.5
 #postgres:15-alpine
 #semitechnologies/weaviate:1.27.0
