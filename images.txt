@@ -1,5 +1,6 @@
 ##registry.cn-hangzhou.aliyuncs.com/share20 
-jgraph/drawio:30.2.7
+jenkins/jenkins:2.571
+#jgraph/drawio:30.2.7
 #mcr.microsoft.com/dotnet/aspnet:7.0
 #langgenius/dify-api:1.15.0
 #langgenius/dify-web:1.15.0
