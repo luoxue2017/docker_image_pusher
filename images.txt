@@ -1,5 +1,6 @@
 ##registry.cn-hangzhou.aliyuncs.com/share20 
-jenkins/jenkins:2.571
+mcr.microsoft.com/playwright:v1.61.0-noble
+#jenkins/jenkins:2.571
 #jgraph/drawio:30.2.7
 #mcr.microsoft.com/dotnet/aspnet:7.0
 #langgenius/dify-api:1.15.0
@@ -30,7 +31,7 @@ jenkins/jenkins:2.571
 #sonarqube:community
 #nginx:1.25
 #nginx
-nginx:1.31
+#nginx:1.31
 #semitechnologies/weaviate:1.25.5
 #postgres:15-alpine
 #semitechnologies/weaviate:1.27.0
