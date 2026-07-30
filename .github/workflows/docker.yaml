@@ -55,13 +55,36 @@ jobs:
             TMPDIR=$(mktemp -d)
             echo "FROM ${SOURCE_FULL}" > $TMPDIR/Dockerfile
 
-            docker buildx build \
-              --platform linux/amd64,linux/arm64 \
-              --pull \
-              --push \
-              --tag $TARGET_IMAGE \
-              -f $TMPDIR/Dockerfile \
-              $TMPDIR
+            echo "开始构建多架构镜像..."
+            
+            if docker buildx build \
+                --platform linux/amd64,linux/arm64 \
+                --pull \
+                --push \
+                --tag "$TARGET_IMAGE" \
+                -f "$TMPDIR/Dockerfile" \
+                "$TMPDIR"; then
+            
+                echo "✅ 多架构构建成功"
+            
+            else
+                echo "⚠️ 多架构构建失败，尝试仅同步 linux/amd64..."
+            
+                docker buildx build \
+                    --platform linux/amd64 \
+                    --pull \
+                    --push \
+                    --tag "$TARGET_IMAGE" \
+                    -f "$TMPDIR/Dockerfile" \
+                    "$TMPDIR"
+            
+                if [ $? -eq 0 ]; then
+                    echo "✅ 已降级为 linux/amd64 镜像"
+                else
+                    echo "❌ linux/amd64 构建仍然失败"
+                    exit 1
+                fi
+            fi
 
             rm -rf "$TMPDIR"
             echo "  $TARGET_IMAGE"
