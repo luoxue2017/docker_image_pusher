@@ -1,5 +1,5 @@
 ##registry.cn-hangzhou.aliyuncs.com/share20 
-ghcr.io/huggingface/text-embeddings-inference:cpu-1.7
+ghcr.io/huggingface/text-embeddings-inference:cpu-latest
 #hwdsl2/embeddings-server:latest
 #mcr.microsoft.com/playwright:v1.61.0-noble
 #jenkins/jenkins:2.571
