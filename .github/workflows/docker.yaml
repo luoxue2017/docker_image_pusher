@@ -2,17 +2,31 @@ name: 多架构镜像转存到阿里云
 
 on:
   workflow_dispatch:
+    inputs:
+      image:
+        description: "指定单个镜像，例如 langgenius/dify-api:1.17.0；留空则处理 images.txt 全部镜像"
+        required: false
+        type: string
+
   push:
-    branches: [ main ]
+    branches:
+      - main
+    paths:
+      - ".github/workflows/**"
+      - "images.txt"
+
+permissions:
+  contents: read
 
 env:
-  ALIYUN_REGISTRY: "${{ secrets.ALIYUN_REGISTRY }}"
-  ALIYUN_NAME_SPACE: "${{ secrets.ALIYUN_NAME_SPACE }}"
-  ALIYUN_USER: "${{ secrets.ALIYUN_REGISTRY_USER }}"
-  ALIYUN_PASS: "${{ secrets.ALIYUN_REGISTRY_PASSWORD }}"
+  ALIYUN_REGISTRY: ${{ secrets.ALIYUN_REGISTRY }}
+  ALIYUN_NAMESPACE: ${{ secrets.ALIYUN_NAME_SPACE }}
+
 jobs:
   transfer-multiarch:
+    name: 转存多架构镜像
     runs-on: ubuntu-latest
+    timeout-minutes: 60
 
     steps:
       - name: Checkout 仓库
@@ -20,72 +34,169 @@ jobs:
 
       - name: 设置 QEMU（跨架构支持）
         uses: docker/setup-qemu-action@v3
+        with:
+          platforms: arm64
 
       - name: 设置 Docker Buildx
         uses: docker/setup-buildx-action@v3
+        with:
+          install: true
 
       - name: 登录阿里云镜像仓库
         uses: docker/login-action@v3
         with:
           registry: ${{ env.ALIYUN_REGISTRY }}
-          username: ${{ env.ALIYUN_USER }}
-          password: ${{ env.ALIYUN_PASS }}
+          username: ${{ secrets.ALIYUN_REGISTRY_USER }}
+          password: ${{ secrets.ALIYUN_REGISTRY_PASSWORD }}
 
-      - name: 构建并推送多架构镜像
+      - name: 转存镜像
+        shell: bash
         run: |
-          ACR_PREFIX="${ALIYUN_REGISTRY}/${ALIYUN_NAME_SPACE}"
+          set -Eeuo pipefail
 
-          cat images.txt | while read line; do
-            [[ -z "$line" || "$line" =~ ^#.* ]] && continue
+          ACR_PREFIX="${ALIYUN_REGISTRY}/${ALIYUN_NAMESPACE}"
 
-            IFS=':' read -r SOURCE_IMAGE SOURCE_TAG <<< "$line"
-            SOURCE_TAG=${SOURCE_TAG:-latest}
-            SOURCE_FULL="docker.io/${SOURCE_IMAGE}:${SOURCE_TAG}"
-            # 判断是否带仓库前缀（即是否包含/且第一个部分中有.或:）
-            if [[ "$SOURCE_IMAGE" =~ ^[a-zA-Z0-9.-]+(:[0-9]+)?/ ]]; then
-               SOURCE_FULL="${SOURCE_IMAGE}:${SOURCE_TAG}"
-            else
-               SOURCE_FULL="docker.io/${SOURCE_IMAGE}:${SOURCE_TAG}"
+          # GitHub Actions 手动指定单个镜像
+          MANUAL_IMAGE="${{ inputs.image || '' }}"
+
+          # 创建临时文件保存待处理镜像列表
+          IMAGE_LIST=$(mktemp)
+
+          cleanup() {
+            rm -f "$IMAGE_LIST"
+          }
+
+          trap cleanup EXIT
+
+          if [[ -n "$MANUAL_IMAGE" ]]; then
+            echo "$MANUAL_IMAGE" > "$IMAGE_LIST"
+            echo "手动指定镜像: $MANUAL_IMAGE"
+          else
+            if [[ ! -f "images.txt" ]]; then
+              echo "❌ images.txt 不存在"
+              exit 1
             fi
-            IMAGE_BASENAME=$(echo "$SOURCE_IMAGE" | sed 's|/|-|g')
+
+            grep -vE '^[[:space:]]*(#|$)' images.txt \
+              | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' \
+              > "$IMAGE_LIST"
+
+            echo "读取 images.txt："
+            cat "$IMAGE_LIST"
+          fi
+
+          SUCCESS_COUNT=0
+          FALLBACK_COUNT=0
+          FAIL_COUNT=0
+
+          while IFS= read -r SOURCE_FULL || [[ -n "$SOURCE_FULL" ]]; do
+
+            # 跳过空行
+            [[ -z "$SOURCE_FULL" ]] && continue
+
+            # 如果没有 registry，则默认 Docker Hub
+            if [[ "$SOURCE_FULL" != */* ]]; then
+              SOURCE_FULL="docker.io/library/${SOURCE_FULL}"
+            elif [[ "${SOURCE_FULL%%/*}" != *.* && \
+                    "${SOURCE_FULL%%/*}" != *:* && \
+                    "${SOURCE_FULL%%/*}" != "localhost" ]]; then
+              SOURCE_FULL="docker.io/${SOURCE_FULL}"
+            fi
+
+            # 如果没有 tag，默认 latest
+            IMAGE_WITHOUT_DIGEST="${SOURCE_FULL%@*}"
+
+            LAST_PART="${IMAGE_WITHOUT_DIGEST##*/}"
+
+            if [[ "$LAST_PART" != *:* ]]; then
+              SOURCE_FULL="${SOURCE_FULL}:latest"
+            fi
+
+            # 生成阿里云镜像名称
+            SOURCE_PATH="${IMAGE_WITHOUT_DIGEST#*/}"
+
+            # 移除 tag
+            SOURCE_PATH="${SOURCE_PATH%:*}"
+
+            IMAGE_BASENAME=$(echo "$SOURCE_PATH" | tr '/' '-')
+
+            # 获取 tag
+            LAST_PART="${SOURCE_FULL##*/}"
+
+            if [[ "$LAST_PART" == *:* ]]; then
+              SOURCE_TAG="${LAST_PART##*:}"
+            else
+              SOURCE_TAG="latest"
+            fi
+
             TARGET_IMAGE="${ACR_PREFIX}/${IMAGE_BASENAME}:${SOURCE_TAG}"
 
-            echo "🚀 转存镜像: $SOURCE_FULL → $TARGET_IMAGE"
+            echo ""
+            echo "=================================================="
+            echo "🚀 开始转存"
+            echo "源镜像: $SOURCE_FULL"
+            echo "目标镜像: $TARGET_IMAGE"
+            echo "=================================================="
 
             TMPDIR=$(mktemp -d)
-            echo "FROM ${SOURCE_FULL}" > $TMPDIR/Dockerfile
 
-            echo "开始构建多架构镜像..."
-            
+            cleanup_image() {
+              rm -rf "$TMPDIR"
+            }
+
+            echo "FROM ${SOURCE_FULL}" > "${TMPDIR}/Dockerfile"
+
+            echo "▶ 尝试转存 linux/amd64 + linux/arm64..."
+
             if docker buildx build \
-                --platform linux/amd64,linux/arm64 \
+              --platform linux/amd64,linux/arm64 \
+              --pull \
+              --push \
+              --provenance=false \
+              --sbom=false \
+              --tag "$TARGET_IMAGE" \
+              -f "${TMPDIR}/Dockerfile" \
+              "$TMPDIR"
+            then
+              echo "✅ 多架构镜像转存成功"
+              SUCCESS_COUNT=$((SUCCESS_COUNT + 1))
+
+            else
+              echo "⚠️ 多架构构建失败"
+              echo "▶ 尝试降级为 linux/amd64..."
+
+              if docker buildx build \
+                --platform linux/amd64 \
                 --pull \
                 --push \
+                --provenance=false \
+                --sbom=false \
                 --tag "$TARGET_IMAGE" \
-                -f "$TMPDIR/Dockerfile" \
-                "$TMPDIR"; then
-            
-                echo "✅ 多架构构建成功"
-            
-            else
-                echo "⚠️ 多架构构建失败，尝试仅同步 linux/amd64..."
-            
-                docker buildx build \
-                    --platform linux/amd64 \
-                    --pull \
-                    --push \
-                    --tag "$TARGET_IMAGE" \
-                    -f "$TMPDIR/Dockerfile" \
-                    "$TMPDIR"
-            
-                if [ $? -eq 0 ]; then
-                    echo "✅ 已降级为 linux/amd64 镜像"
-                else
-                    echo "❌ linux/amd64 构建仍然失败"
-                    exit 1
-                fi
+                -f "${TMPDIR}/Dockerfile" \
+                "$TMPDIR"
+              then
+                echo "⚠️ 已成功降级为 linux/amd64"
+                FALLBACK_COUNT=$((FALLBACK_COUNT + 1))
+              else
+                echo "❌ linux/amd64 也转存失败: $SOURCE_FULL"
+                FAIL_COUNT=$((FAIL_COUNT + 1))
+              fi
             fi
 
             rm -rf "$TMPDIR"
-            echo "  $TARGET_IMAGE"
-          done
+
+            echo "目标镜像: $TARGET_IMAGE"
+
+          done < "$IMAGE_LIST"
+
+          echo ""
+          echo "=================================================="
+          echo "🎉 镜像转存完成"
+          echo "=================================================="
+          echo "多架构成功: $SUCCESS_COUNT"
+          echo "AMD64 降级成功: $FALLBACK_COUNT"
+          echo "失败数量: $FAIL_COUNT"
+
+          if [[ "$FAIL_COUNT" -gt 0 ]]; then
+            exit 1
+          fi
