@@ -1,4 +1,4 @@
-##registry.cn-hangzhou.aliyuncs.com/share20 
+##registry.cn-hangzhou.aliyuncs.com/share20
 #codercom/code-server:debian
 langgenius/dify-api:1.17.0
 langgenius/dify-web:1.17.0
