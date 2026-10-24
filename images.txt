@@ -1,6 +1,8 @@
 ##registry.cn-hangzhou.aliyuncs.com/share20
-ghcr.io/mscrnt/ubuntu-desktop:latest
-lscr.io/linuxserver/webtop:debian-xfce
+gitea/gitea:28-nightly
+gogs/gogs:next-0.14
+#ghcr.io/mscrnt/ubuntu-desktop:latest
+#lscr.io/linuxserver/webtop:debian-xfce
 #calciumion/new-api:latest
 #codercom/code-server:debian
 #langgenius/dify-api:1.17.0
